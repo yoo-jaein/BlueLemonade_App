@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -17,13 +18,19 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        TextView txt = (TextView)findViewById(R.id.category_txtview);
+        Intent intent = getIntent();
+        String data = intent.getStringExtra("category");
+
+
+
         ImageButton auto_matching_btn = (ImageButton)findViewById(R.id.auto_matching_button);
         auto_matching_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(thisactivity, PopupActivity.class);
-                intent.putExtra("data", "BBQ - 황금올리브치킨 16000");
-                startActivityForResult(intent, 1);
+                Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -31,8 +38,8 @@ public class Main2Activity extends AppCompatActivity {
         create_room_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(thisactivity, CreateRoomActivity.class);
-
+                Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

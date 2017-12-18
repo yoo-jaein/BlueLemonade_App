@@ -1,4 +1,4 @@
-package knu.cse.blueLemonAde.ProblemDomain;
+package com.example.myapplication;
 
 /**
  * @author jm

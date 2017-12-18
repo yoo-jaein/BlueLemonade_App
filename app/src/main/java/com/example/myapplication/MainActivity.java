@@ -26,19 +26,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, str1);
         Spinner spi1 = (Spinner)findViewById(R.id.spinner);
         spi1.setAdapter(adapter1);
-        spi1.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected
-                            (AdapterView<?> parent, View view, int position, long id) {
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                }
-        );
+        spi1.setSelection(1);
 
         String[] str2 = getResources().getStringArray(R.array.dormArray);
         ArrayAdapter<String> adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, str2);
@@ -74,6 +62,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(thisactivity, Main2Activity.class);
                 intent.putExtra("pizza", "category");
+                startActivity(intent);
+            }
+        });
+
+        ImageButton auto_matching_btn = (ImageButton)findViewById(R.id.auto_matching_button);
+        auto_matching_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        ImageButton create_room_btn = (ImageButton)findViewById(R.id.create_room_button);
+        create_room_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
