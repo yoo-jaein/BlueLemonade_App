@@ -25,6 +25,11 @@ public class Constants {
 	public final static int DELIVERYING = 2;
 	public final static int COMPLETE 	= 3;
 
+	// handler constants
+	public final static int SUCCESS = 0;
+	public final static int FAIL 	= 1;
+	public final static int ERR 	= 2;
+
 	public static enum Category {
 		/* BUNSIC, */ 치킨(0), 피자(1); /*, CHAINESE, JOCBO, NIGHT, FAST, DOSIRAC;*/
 		public int value;
