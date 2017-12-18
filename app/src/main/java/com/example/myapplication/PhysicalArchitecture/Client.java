@@ -4,10 +4,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
+
+import static com.example.myapplication.PhysicalArchitecture.Client.*;
 
 public class Client
 {
+	public final static int START = -1;
+	public final static int NONE = 0;
+	public final static int WAIT_MATCHING = 1;
+	public final static int MAKE_ROOM = 2;
+	public final static int SHOWROOMLIST = 3;
+	public final static int ENTRANCE = 4;
+	public final static int CHATTING = 5;
+	public final static int SELECT_MENU = 6;
+	public final static int CHECK_MENU = 7;
+	public final static int COMPLETE_ORDER = 8;
+	public final static int TRACE_ORDER = 9;
+
 	Socket sock;
 	clientWrite clientW;
 	clientRead clientR;
@@ -70,7 +83,7 @@ class clientRead extends Thread//서버로 부터 메세지 받기.
 					cControl.handleMsg(cControl.getSList().get(0));
 				}
 				while(cControl.getCList().size() > 0) {
-					if(cControl.getUserState() == ClientConstants.CHATTING)
+					if(cControl.getUserState() == CHATTING)
 						System.out.println(cControl.getCList().get(0));
 					else
 						cControl.getCList().clear();
@@ -119,17 +132,12 @@ class clientWrite extends Thread//서버로 메세지 보내기
 	private ClientControl cControl;
 	
 	private boolean sendToReadyString;
-	
-	private Scanner scanner;
-	private String temp;
-	
+
 	public clientWrite(Socket socket, ClientControl cControl)
 	{
 		this.socket=socket;
 		this.cControl = cControl;
 		sendToReadyString=false;
-		
-		scanner = new Scanner(System.in);
 	}
 	public void run()
 	{
@@ -139,14 +147,7 @@ class clientWrite extends Thread//서버로 메세지 보내기
 			out = new ObjectOutputStream(socket.getOutputStream());
 
 			while (true) //&전체 thread의 반복문
-			{			
-				temp = scanner.nextLine();
-				
-				if(temp.startsWith("#cmd%search"))
-					cControl.setUserState(ClientConstants.WAIT_MATCHING);
-				
-				sendToServer(temp);
-				
+			{
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
