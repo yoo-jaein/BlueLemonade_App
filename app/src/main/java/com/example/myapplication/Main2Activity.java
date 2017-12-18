@@ -8,6 +8,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 public class Main2Activity extends AppCompatActivity {
 
     Activity thisactivity = this;
+    Constants.CHICKEN[] chickens = Constants.CHICKEN.values();
+    Constants.PIZZA[] pizzas = Constants.PIZZA.values();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,53 +36,76 @@ public class Main2Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String data = intent.getStringExtra("category");
 
-        if(data.equals("chicken"))
-            txt.setText("치킨");
-        if(data.equals("pizza"))
-            txt.setText("피자");
-
         final LinearLayout lm = (LinearLayout)findViewById(R.id.ll);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        if(data.equals("chicken")) {
+            txt.setText("치킨");
 
-        for(int j = 0; j < Constants.CHICKEN.values().length; j++) {
-            // LinearLayout 생성
-            LinearLayout ll = new LinearLayout(this);
-            ll.setOrientation(LinearLayout.HORIZONTAL);
+            for(int j = 0; j < chickens.length; j++) {
+                // LinearLayout 생성
+                LinearLayout ll = new LinearLayout(this);
+                ll.setOrientation(LinearLayout.HORIZONTAL);
 
-            // TextView 생성
-            TextView brand_txt = new TextView(this);
-            brand_txt.setText("Name" + j + " ");
-            ll.addView(brand_txt);
+                // 버튼 생성
+                final Button btn = new Button(this);
 
-            // TextView 생성
-            TextView tvAge = new TextView(this);
-            tvAge.setText("   Age" + j + "  ");
-            ll.addView(tvAge);
+                // setId 버튼에 대한 키값
+                btn.setId(j + 1);
+                btn.setText(chickens[j].str);
+                btn.setLayoutParams(params);
+                btn.setBackgroundColor(Color.rgb(255,255,255));
 
-            // 버튼 생성
-            final Button btn = new Button(this);
+                final int position = j;
+                btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Log.d("log", "position :" + position);
+                        Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
+                    }
 
-            // setId 버튼에 대한 키값
-            btn.setId(j + 1);
-            btn.setText("Apply");
-            btn.setLayoutParams(params);
+                });
+                //버튼 add
+                ll.addView(btn);
+                ll.setPadding(0,0,0,10);
 
-            final int position = j;
-            btn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Log.d("log", "position :" + position);
-                    Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
-                }
+                //LinearLayout 정의된거 add
+                lm.addView(ll);
+            }
+        }
+        if(data.equals("pizza")) {
+            txt.setText("피자");
 
-            });
-            //버튼 add
-            ll.addView(btn);
+            for(int j = 0; j < pizzas.length; j++) {
+                // LinearLayout 생성
+                LinearLayout ll = new LinearLayout(this);
+                ll.setOrientation(LinearLayout.HORIZONTAL);
 
-            //LinearLayout 정의된거 add
-            lm.addView(ll);
+                // 버튼 생성
+                final Button btn = new Button(this);
+
+                // setId 버튼에 대한 키값
+                btn.setId(j + 1);
+                btn.setText(pizzas[j].str);
+                btn.setLayoutParams(params);
+                btn.setBackgroundColor(Color.rgb(255,255,255));
+
+                final int position = j;
+                btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Log.d("log", "position :" + position);
+                        Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
+                    }
+
+                });
+                //버튼 add
+                ll.addView(btn);
+                ll.setPadding(0,0,0,10);
+
+                //LinearLayout 정의된거 add
+                lm.addView(ll);
+            }
         }
 
 
