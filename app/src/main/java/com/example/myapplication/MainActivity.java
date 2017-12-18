@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(thisactivity, Main2Activity.class);
-                intent.putExtra("chicken", "category");
+                intent.putExtra("category", "chicken");
                 startActivity(intent);
             }
         });
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(thisactivity, Main2Activity.class);
-                intent.putExtra("pizza", "category");
+                intent.putExtra("category", "pizza");
                 startActivity(intent);
             }
         });

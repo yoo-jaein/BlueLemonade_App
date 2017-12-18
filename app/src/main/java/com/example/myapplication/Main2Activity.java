@@ -19,10 +19,14 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         TextView txt = (TextView)findViewById(R.id.category_txtview);
+
         Intent intent = getIntent();
         String data = intent.getStringExtra("category");
 
-
+        if(data.equals("chicken"))
+            txt.setText("치킨");
+        if(data.equals("pizza"))
+            txt.setText("피자");
 
         ImageButton auto_matching_btn = (ImageButton)findViewById(R.id.auto_matching_button);
         auto_matching_btn.setOnClickListener(new View.OnClickListener() {
