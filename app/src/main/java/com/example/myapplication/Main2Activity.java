@@ -61,8 +61,10 @@ public class Main2Activity extends AppCompatActivity {
                 final int position = j;
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Log.d("log", "position :" + position);
-                        Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(thisactivity, Main3Activity.class);
+                        intent.putExtra("brand", btn.getText());
+                        startActivity(intent);
+                        //Toast.makeText(getApplicationContext(), btn.getText(), Toast.LENGTH_LONG).show();
                     }
 
                 });
@@ -94,8 +96,9 @@ public class Main2Activity extends AppCompatActivity {
                 final int position = j;
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Log.d("log", "position :" + position);
-                        Toast.makeText(getApplicationContext(), "클릭한 position:" + position, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(thisactivity, Main3Activity.class);
+                        intent.putExtra("brand", btn.getText());
+                        startActivity(intent);
                     }
 
                 });
@@ -129,12 +132,12 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton floating_back_btn = (FloatingActionButton)findViewById(R.id.floating_back_button);
+       /* FloatingActionButton floating_back_btn = (FloatingActionButton)findViewById(R.id.floating_back_button);
         floating_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
     }
 }

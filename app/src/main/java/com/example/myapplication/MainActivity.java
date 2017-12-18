@@ -8,25 +8,32 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.myapplication.PhysicalArchitecture.ClientControl;
 
 public class MainActivity extends AppCompatActivity {
 
     Activity thisactivity = this;
 
+    Handler mainHandler = null;
+    ClientControl cControl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        cControl = cControl.getClientControl();
 
         String[] str1 = getResources().getStringArray(R.array.univArray);
         ArrayAdapter<String> adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, str1);
@@ -76,9 +83,26 @@ public class MainActivity extends AppCompatActivity {
         auto_matching_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(thisactivity, ChattingActivity.class);
-                finish();
-                startActivity(intent);
+                cControl.setUserState(Constants.WAIT_MATCHING);
+                //TODO 매칭시작!
+                mainHandler = null;
+                mainHandler = new Handler() {
+
+                    @Override
+                    public void handleMessage(Message msg) {
+                        cControl.setMainHandler(null);
+                        if(msg.what== Constants.SUCCESS){
+                            Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                            finish();
+                            startActivity(intent);
+                        } else if(msg.what==Constants.FAIL){
+                            // TODO 매칭 중....
+                        } else if(msg.what==Constants.ERR){
+                            Toast.makeText(getApplicationContext(), "오류 : 핸들러.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
+                cControl.setMainHandler(mainHandler);
             }
         });
 
@@ -86,9 +110,26 @@ public class MainActivity extends AppCompatActivity {
         create_room_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(thisactivity, ChattingActivity.class);
-                finish();
-                startActivity(intent);
+                mainHandler = null;
+                mainHandler = new Handler() {
+
+                    @Override
+                    public void handleMessage(Message msg) {
+                        cControl.setMainHandler(null);
+                        if(msg.what== Constants.SUCCESS){
+                            Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                            finish();
+                            startActivity(intent);
+                        } else if(msg.what==Constants.FAIL){
+                            Intent intent = new Intent(thisactivity, ChattingActivity.class);
+                            finish();
+                            startActivity(intent);
+                            // TODO 매칭 중....
+                        } else if(msg.what==Constants.ERR){
+                            Toast.makeText(getApplicationContext(), "오류 : 핸들러.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
             }
         });
     }

@@ -17,15 +17,24 @@ public class ClientControl {
 	private ArrayList<String> CList;
 	private int userState = Constants.NONE;
 
-	private Handler mainHandler, main2Handler, ChattingHandler, OrderHandler;
+	private Handler startHandler, mainHandler, main2Handler, main3Handler, chattingHandler, orderHandler;
 
-	public ClientControl(Client client)
+	private static ClientControl cControl = new ClientControl();
+
+	public ClientControl()
 	{
-		this.client = client;
+		client = new Client();
 		SList = new ArrayList<String>();
 		CList = new ArrayList<String>();
 	}	
-	
+
+	public static ClientControl getClientControl(){
+		return cControl;
+	}
+
+	public Client getClient(){
+		return client;
+	}
 	//////////test
 	public void setUserState(int userState) {
 		this.userState = userState;
@@ -55,6 +64,7 @@ public class ClientControl {
 			switch(userState) {
 				case START : // 앱 처음 실행 상태. 현재 위치 GPS 좌표를 서버로 보낸 뒤 응답이 오면
 					userState = NONE;	// TODO 앱 진행 가능하도록!!
+					startHandler.sendEmptyMessage(Constants.SUCCESS);
 					break;
 				case WAIT_MATCHING: // 방을 만들어서 다른 사용자를 기다리거나 매칭 대기중일 때 서버에서 매칭이 되어 응답이 오면
 					client.clientW.sendToServer("#cmd%entrance");	// 서버에 채팅방 입장 명령을 보냄
@@ -66,6 +76,7 @@ public class ClientControl {
 				case ENTRANCE:		// 채팅방 입장 대기 상태일 때 서버에서 응답이 오면
 					// TODO 채팅방 액티비티!!!! 채팅시작. 만약에 이미 채팅방에 있을 경우, 사용자 입장만 알리기.
 					userState = CHATTING;	// 채팅중 상태로 전환
+					mainHandler
 
 					break;
 				case SELECT_MENU:
@@ -219,19 +230,35 @@ public class ClientControl {
 		this.main2Handler = main2Handler;
 	}
 
+	public Handler getMain3Handler() {
+		return main2Handler;
+	}
+
+	public void setMain3Handler(Handler main2Handler) {
+		this.main2Handler = main2Handler;
+	}
+
 	public Handler getChattingHandler() {
-		return ChattingHandler;
+		return chattingHandler;
 	}
 
 	public void setChattingHandler(Handler chattingHandler) {
-		ChattingHandler = chattingHandler;
+		chattingHandler = chattingHandler;
 	}
 
 	public Handler getOrderHandler() {
-		return OrderHandler;
+		return orderHandler;
 	}
 
 	public void setOrderHandler(Handler orderHandler) {
-		OrderHandler = orderHandler;
+		this.orderHandler = orderHandler;
+	}
+
+	public Handler getStartHandler() {
+		return startHandler;
+	}
+
+	public void setStartHandler(Handler orderHandler) {
+		startHandler = startHandler;
 	}
 }

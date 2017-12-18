@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import static com.example.myapplication.PhysicalArchitecture.Client.*;
 
-public class Client
+public class Client extends Thread
 {
 	public final static int START = -1;
 	public final static int NONE = 0;
@@ -21,14 +21,18 @@ public class Client
 	public final static int COMPLETE_ORDER = 8;
 	public final static int TRACE_ORDER = 9;
 
+	private final static String host = "192.168.123.101";
+	private final static int port = 11113;
+
 	Socket sock;
 	clientWrite clientW;
 	clientRead clientR;
 	private ClientControl cControl;
 
-	public Client(String host, int port)
+	public void run()
 	{
-		cControl = new ClientControl(this);
+		cControl = cControl.getClientControl();
+
 		try { 
 			System.out.println("-----클라이언트가 실행되었습니다.");
 			sock = new Socket(host, port);
