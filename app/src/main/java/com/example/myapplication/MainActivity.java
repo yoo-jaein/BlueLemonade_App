@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, str2);
         Spinner spi2 = (Spinner)findViewById(R.id.spinner2);
         spi2.setAdapter(adapter2);
+        spi2.setSelection(6);
         spi2.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(thisactivity, ChattingActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -87,9 +87,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(thisactivity, ChattingActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
+
+
+        /* ImageButton location_btn = (ImageButton)findViewById(R.id.location_button);
+        location_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(thisactivity, OrderStatusActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });*/
     }
 }
