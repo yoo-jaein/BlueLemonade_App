@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dormArray">
+        <item>기숙사 선택</item>
+        <item>성실관</item>
+        <item>긍지관</item>
+        <item>협동관</item>
+        <item>봉사관</item>
+        <item>진리관</item>
+        <item>화목관</item>
+        <item>면학관</item>
+        <item>향토관</item>
+        <item>첨성관</item>
+    </string-array>
+</resources>
