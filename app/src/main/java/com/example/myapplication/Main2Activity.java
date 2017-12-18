@@ -23,8 +23,11 @@ import android.widget.Toast;
 public class Main2Activity extends AppCompatActivity {
 
     Activity thisactivity = this;
+
     Constants.CHICKEN[] chickens = Constants.CHICKEN.values();
     Constants.PIZZA[] pizzas = Constants.PIZZA.values();
+
+    int category_num = -1;  // category 저장: CHICKEN(0), PIZZA(1)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class Main2Activity extends AppCompatActivity {
 
         if(data.equals("chicken")) {
             txt.setText("치킨");
+            category_num = 0;
 
             for(int j = 0; j < chickens.length; j++) {
                 // LinearLayout 생성
@@ -53,7 +57,7 @@ public class Main2Activity extends AppCompatActivity {
                 final Button btn = new Button(this);
 
                 // setId 버튼에 대한 키값
-                btn.setId(j + 1);
+                btn.setId(j);
                 btn.setText(chickens[j].str);
                 btn.setLayoutParams(params);
                 btn.setBackgroundColor(Color.rgb(255,255,255));
@@ -63,6 +67,7 @@ public class Main2Activity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(thisactivity, Main3Activity.class);
                         intent.putExtra("brand", btn.getText());
+                        intent.putExtra("category", "chicken");
                         startActivity(intent);
                         //Toast.makeText(getApplicationContext(), btn.getText(), Toast.LENGTH_LONG).show();
                     }
@@ -78,6 +83,7 @@ public class Main2Activity extends AppCompatActivity {
         }
         if(data.equals("pizza")) {
             txt.setText("피자");
+            category_num = 1;
 
             for(int j = 0; j < pizzas.length; j++) {
                 // LinearLayout 생성
@@ -88,7 +94,7 @@ public class Main2Activity extends AppCompatActivity {
                 final Button btn = new Button(this);
 
                 // setId 버튼에 대한 키값
-                btn.setId(j + 1);
+                btn.setId(j);
                 btn.setText(pizzas[j].str);
                 btn.setLayoutParams(params);
                 btn.setBackgroundColor(Color.rgb(255,255,255));
@@ -98,6 +104,7 @@ public class Main2Activity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(thisactivity, Main3Activity.class);
                         intent.putExtra("brand", btn.getText());
+                        intent.putExtra("category", "pizza");
                         startActivity(intent);
                     }
 
