@@ -1,5 +1,11 @@
 package com.example.myapplication;
 
+/*
+    MainActivity
+    spinner 학교, 기숙사
+    category 치킨, 피자
+*/
+
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
